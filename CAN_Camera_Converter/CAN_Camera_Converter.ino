@@ -48,7 +48,6 @@ void set_id_filters(){
     // <--  MSB                  LSB -->
     //                       [   id    ] 
     // 010101010101010101111 00011110000
-
     
     mcp2515.setConfigMode();  // Must be in config mode to set filters
     uint32_t id_filter = 0;
