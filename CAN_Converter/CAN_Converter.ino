@@ -114,7 +114,7 @@ void setup() {
     set_id_filters();
     receiver.setNormalMode();
     transmitter.reset();
-    MCP2515::ERROR set_transmitter_bitrate_result = receiver.setBitrate(TRANSMITTER_SPEED, TRANSMITTER_CLOCK);
+    MCP2515::ERROR set_transmitter_bitrate_result = transmitter.setBitrate(TRANSMITTER_SPEED, TRANSMITTER_CLOCK);
     transmitter.setNormalMode();
 
     #ifdef SERIAL_DEBUG_ENABLED
