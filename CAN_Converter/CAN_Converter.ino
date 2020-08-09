@@ -2,13 +2,13 @@
 #include <mcp2515.h>  // https://github.com/autowp/arduino-mcp2515
 
 // Master debugging switch
-//#define SERIAL_DEBUG_ENABLED
+// #define SERIAL_DEBUG_ENABLED
 
 // Limit messages about CAN frames to 1Hz
-//#define DEBUG_RATE_LIMIT
+// #define DEBUG_RATE_LIMIT
 
 // Timing output on pin 2
-//#define TIMING_PULSES_ENABLED
+// #define TIMING_PULSES_ENABLED
 
 // CAN bus configuration
 const CAN_SPEED RECEIVER_SPEED = CAN_1000KBPS;
@@ -124,7 +124,7 @@ void setup() {
         else if (set_receiver_bitrate_result != MCP2515::ERROR_OK){
             Serial.println(F("Failed to set receiver bitrate. Is the MCP2515 connected?"));
         }
-        else (set_receiver_bitrate_result != MCP2515::ERROR_OK){
+        else{
             Serial.println(F("Failed to set transmitter bitrate. Is the MCP2515 connected?"));
         }
         Serial.println(F("Finished setup"));
