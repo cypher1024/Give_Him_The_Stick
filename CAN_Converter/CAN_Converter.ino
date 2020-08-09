@@ -11,8 +11,10 @@
 //#define TIMING_PULSES_ENABLED
 
 // CAN bus configuration
-const CAN_SPEED SPEED = CAN_1000KBPS;
-const CAN_CLOCK CLOCK = MCP_20MHZ;
+const CAN_SPEED RECEIVER_SPEED = CAN_1000KBPS;
+const CAN_CLOCK RECEIVER_CLOCK = MCP_20MHZ;
+const CAN_SPEED TRANSMITTER_SPEED = CAN_1000KBPS;
+const CAN_CLOCK TRANSMITTER_CLOCK = MCP_20MHZ;
 
 // IDs to allow through the filter
 const uint32_t ID_LIST[] = {
@@ -108,11 +110,11 @@ void setup() {
 
     // Set up MCP2515 modules
     receiver.reset();
-    MCP2515::ERROR set_receiver_bitrate_result = receiver.setBitrate(SPEED, CLOCK);
+    MCP2515::ERROR set_receiver_bitrate_result = receiver.setBitrate(RECEIVER_SPEED, RECEIVER_CLOCK);
     set_id_filters();
     receiver.setNormalMode();
     transmitter.reset();
-    MCP2515::ERROR set_transmitter_bitrate_result = receiver.setBitrate(SPEED, CLOCK);
+    MCP2515::ERROR set_transmitter_bitrate_result = receiver.setBitrate(TRANSMITTER_SPEED, TRANSMITTER_CLOCK);
     transmitter.setNormalMode();
 
     #ifdef SERIAL_DEBUG_ENABLED
