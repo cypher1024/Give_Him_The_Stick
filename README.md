@@ -14,15 +14,15 @@
   - Uno GND -> Both MCP2515 GND
   - Uno  D9 -> Transmitter MCP2515 CS
   - Uno D10 -> Receiver MCP2515 CS
-  - Uno D11 -> Both MCP2515 module SI
-  - Uno D12 -> Both MCP2515 module SO
-  - Uno D11 -> Both MCP2515 module SCK
+  - Uno D11 -> Both MCP2515 SI
+  - Uno D12 -> Both MCP2515 SO
+  - Uno D13 -> Both MCP2515 SCK
 - For a Mega 2560:
   - Mega 2560 GND -> Both MCP2515 GND
   - Mega 2560  D9 -> Transmitter MCP2515 CS
   - Mega 2560 D10 -> Receiver MCP2515 CS
-  - Mega 2560 D50 -> Both MCP2515 module SO
-  - Mega 2560 D51 -> Both MCP2515 module SI
-  - Mega 2560 D52 -> Both MCP2515 module SCK
+  - Mega 2560 D50 -> Both MCP2515 SO
+  - Mega 2560 D51 -> Both MCP2515 SI
+  - Mega 2560 D52 -> Both MCP2515 SCK
 
 Datasheet for the MCP2515: http://ww1.microchip.com/downloads/en/DeviceDoc/MCP2515-Stand-Alone-CAN-Controller-with-SPI-20001801J.pdf
