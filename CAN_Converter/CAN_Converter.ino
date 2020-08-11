@@ -121,6 +121,7 @@ void setup() {
         MCP2515::ERROR set_transmitter_bitrate_result = transmitter.setBitrate(TRANSMITTER_SPEED, TRANSMITTER_CLOCK);
         transmitter.setNormalMode();
     #else
+        transmitter = receiver;
         MCP2515::ERROR set_transmitter_bitrate_result = MCP2515::ERROR_OK;
     #endif
 
@@ -171,11 +172,7 @@ void loop() {
         #endif
         
         // Process the new frame
-        #ifdef SINGLE_MODULE_MODE
-            handle_haltech_frame(&incoming_frame, &receiver);
-        #else
-            handle_haltech_frame(&incoming_frame, &transmitter);
-        #endif
+        handle_haltech_frame(&incoming_frame, &transmitter);
     }
 
     // Output timing pulse
