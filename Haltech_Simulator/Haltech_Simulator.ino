@@ -61,6 +61,21 @@ void setup() {
 }
 
 
+void print_message(struct can_frame *message){
+    // static uint8_t debug_id = 0;
+    // debug_id++;
+    // message->data[7] = debug_id;
+    Serial.print(F("ID: ")); Serial.print(message->can_id, HEX); 
+    Serial.print(F(", DLC:")); Serial.print(message->can_dlc, HEX);
+    Serial.print(F(", Data: "));
+    for (int i = 0; i<message->can_dlc; i++){ 
+        Serial.print(message->data[i],HEX);
+        Serial.print(F(" "));
+    }
+    Serial.println(); 
+}
+
+
 void loop(){
     #ifdef PORKCHOP_SANDWICHES
         mcp2515.sendMessage(&rpm_throttle_packet);
