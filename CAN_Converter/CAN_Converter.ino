@@ -1,8 +1,11 @@
 #include <SPI.h>
 #include <mcp2515.h>  // https://github.com/autowp/arduino-mcp2515
 
+// Use the 'receiver' module for both receiving and transmitting
+#define SINGLE_MODULE_MODE
+
 // Master debugging switch
-// #define SERIAL_DEBUG_ENABLED
+#define SERIAL_DEBUG_ENABLED
 
 // Limit messages about CAN frames to 1Hz
 // #define DEBUG_RATE_LIMIT
@@ -113,9 +116,13 @@ void setup() {
     MCP2515::ERROR set_receiver_bitrate_result = receiver.setBitrate(RECEIVER_SPEED, RECEIVER_CLOCK);
     set_id_filters();
     receiver.setNormalMode();
-    transmitter.reset();
-    MCP2515::ERROR set_transmitter_bitrate_result = transmitter.setBitrate(TRANSMITTER_SPEED, TRANSMITTER_CLOCK);
-    transmitter.setNormalMode();
+    #ifndef SINGLE_MODULE_MODE
+        transmitter.reset();
+        MCP2515::ERROR set_transmitter_bitrate_result = transmitter.setBitrate(TRANSMITTER_SPEED, TRANSMITTER_CLOCK);
+        transmitter.setNormalMode();
+    #else
+        MCP2515::ERROR set_transmitter_bitrate_result = MCP2515::ERROR_OK;
+    #endif
 
     #ifdef SERIAL_DEBUG_ENABLED
         if (set_receiver_bitrate_result == MCP2515::ERROR_OK && set_transmitter_bitrate_result == MCP2515::ERROR_OK) {
@@ -164,7 +171,11 @@ void loop() {
         #endif
         
         // Process the new frame
-        handle_haltech_frame(&incoming_frame, &transmitter);
+        #ifdef SINGLE_MODULE_MODE
+            handle_haltech_frame(&incoming_frame, &receiver);
+        #else
+            handle_haltech_frame(&incoming_frame, &transmitter);
+        #endif
     }
 
     // Output timing pulse
