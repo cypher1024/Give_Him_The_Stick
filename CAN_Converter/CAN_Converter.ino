@@ -142,15 +142,14 @@ void setup() {
 
 void loop() {
     #ifdef SERIAL_DEBUG_ENABLED
+        static uint32_t last_debug_message_time = 0;
         #ifdef DEBUG_RATE_LIMIT
-          static uint32_t last_debug_message_time = 0;
-          if (millis() - last_debug_message_time >= 1000) {
-            show_message = true;
-            last_debug_message_time = millis();
-          }
-          else {
-            show_message = false;
-          }
+            if (millis() - last_debug_message_time >= 1000) {
+                show_message = true;
+            }
+            else {
+                show_message = false;
+            }
         #endif
     #endif
 
@@ -159,15 +158,16 @@ void loop() {
     if (receiver.readMessage(&incoming_frame) == MCP2515::ERROR_OK) {
         #ifdef SERIAL_DEBUG_ENABLED
             if (show_message) {
-              Serial.println(); Serial.print(F("Received: "));
-              Serial.print(F("ID: ")); Serial.print(incoming_frame.can_id, HEX);
-              Serial.print(F(", DLC:")); Serial.print(incoming_frame.can_dlc, HEX);
-              Serial.print(F(", Data: "));
-              for (int i = 0; i < incoming_frame.can_dlc; i++)  {
-                  Serial.print(incoming_frame.data[i], HEX);
-                  Serial.print(F(" "));
-              }
+                Serial.println(); Serial.print(F("Received: "));
+                Serial.print(F("ID: ")); Serial.print(incoming_frame.can_id, HEX);
+                Serial.print(F(", DLC:")); Serial.print(incoming_frame.can_dlc, HEX);
+                Serial.print(F(", Data: "));
+                for (int i = 0; i < incoming_frame.can_dlc; i++)  {
+                    Serial.print(incoming_frame.data[i], HEX);
+                    Serial.print(F(" "));
+                }
               Serial.println();
+              last_debug_message_time = millis();
             }
         #endif
         
